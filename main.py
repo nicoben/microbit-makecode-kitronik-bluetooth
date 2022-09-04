@@ -1,7 +1,10 @@
 def on_bluetooth_disconnected():
     basic.show_icon(IconNames.SAD)
+bluetooth.on_bluetooth_disconnected(on_bluetooth_disconnected)
+
 def on_bluetooth_connected():
     basic.show_icon(IconNames.HAPPY)
+bluetooth.on_bluetooth_connected(on_bluetooth_connected)
 
 def on_mes_dpad_controller_id_microbit_evt():
     if control.event_value() == EventBusValue.MES_DPAD_BUTTON_A_DOWN:
@@ -40,10 +43,12 @@ control.on_event(EventBusSource.MES_DPAD_CONTROLLER_ID,
     EventBusValue.MICROBIT_EVT_ANY,
     on_mes_dpad_controller_id_microbit_evt)
 
-bluetooth.on_bluetooth_connected(on_bluetooth_connected)
-bluetooth.on_bluetooth_connected(on_bluetooth_connected)
-
 def on_forever():
     led.toggle(randint(0, 4), randint(0, 4))
-    basic.pause(1000)
+    basic.pause(200)
 basic.forever(on_forever)
+
+bluetooth.start_accelerometer_service()
+bluetooth.start_led_service()
+bluetooth.start_temperature_service()
+bluetooth.start_io_pin_service()

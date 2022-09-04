@@ -1,11 +1,9 @@
-function on_bluetooth_disconnected() {
+bluetooth.onBluetoothDisconnected(function on_bluetooth_disconnected() {
     basic.showIcon(IconNames.Sad)
-}
-
-function on_bluetooth_connected() {
+})
+bluetooth.onBluetoothConnected(function on_bluetooth_connected() {
     basic.showIcon(IconNames.Happy)
-}
-
+})
 control.onEvent(EventBusSource.MES_DPAD_CONTROLLER_ID, EventBusValue.MICROBIT_EVT_ANY, function on_mes_dpad_controller_id_microbit_evt() {
     if (control.eventValue() == EventBusValue.MES_DPAD_BUTTON_A_DOWN) {
         basic.showString("A")
@@ -42,9 +40,11 @@ control.onEvent(EventBusSource.MES_DPAD_CONTROLLER_ID, EventBusValue.MICROBIT_EV
     }
     
 })
-bluetooth.onBluetoothConnected(on_bluetooth_connected)
-bluetooth.onBluetoothConnected(on_bluetooth_connected)
 basic.forever(function on_forever() {
     led.toggle(randint(0, 4), randint(0, 4))
-    basic.pause(1000)
+    basic.pause(200)
 })
+bluetooth.startAccelerometerService()
+bluetooth.startLEDService()
+bluetooth.startTemperatureService()
+bluetooth.startIOPinService()
